@@ -2,6 +2,7 @@ import csv
 import random
 import subprocess
 from progress.bar import Bar
+import argparse
 
 def get_n_lines(filename):
     result = subprocess.run(['wc', '-l', filename], stdout=subprocess.PIPE)
@@ -88,11 +89,19 @@ def generate_ttl(filename, max_rows = 0):
     return setkey_ttl
 
 def main():
+    parser = argparse.ArgumentParser(description='traceprocessing')
+    parser.add_argument('--inputfile')
+    parser.add_argument('--outputfile')
+    args = parser.parse_args()
+
     occurrences, ttl = count_ttl_occurrences_and_generate_ttl(filename, max_rows)
 
     v, p = generate_distribution(occurrences)
 
     random_ttls = generate_k_random_value(v, p, k)
+
+    filename = args.inputefile
+    outputfilename = args.outputfile
 
     with open(filename, 'r') as file:
         reader = csv.DictReader(file)
@@ -125,8 +134,8 @@ def main():
                 
 
 if __name__ == '__main__':
-    filename = '/home/ms-admin/workspace1/lijiaxi/CacheLib/opt/cachelib/kvcache_202401/kvcache_traces_2.csv'  # CSV 文件路径
-    outputfilename = 'modified_2.csv'
+    # filename = '/home/ms-admin/workspace1/lijiaxi/CacheLib/opt/cachelib/kvcache_202401/kvcache_traces_2.csv'  # CSV 文件路径
+    # outputfilename = 'modified_2.csv'
     # target_column = 'op'  # 目标列名
     # target_value = 'SET'  # 目标值
     # count_column = 'ttl'  # 统计列名
