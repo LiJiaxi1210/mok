@@ -89,19 +89,11 @@ def generate_ttl(filename, max_rows = 0):
     return setkey_ttl
 
 def main():
-    parser = argparse.ArgumentParser(description='traceprocessing')
-    parser.add_argument('--inputfile')
-    parser.add_argument('--outputfile')
-    args = parser.parse_args()
-
     occurrences, ttl = count_ttl_occurrences_and_generate_ttl(filename, max_rows)
 
     v, p = generate_distribution(occurrences)
 
     random_ttls = generate_k_random_value(v, p, k)
-
-    filename = args.inputefile
-    outputfilename = args.outputfile
 
     with open(filename, 'r') as file:
         reader = csv.DictReader(file)
@@ -141,6 +133,14 @@ if __name__ == '__main__':
     # count_column = 'ttl'  # 统计列名
 
     # 统计trace最大行数，没有上限设为0
+
+    parser = argparse.ArgumentParser(description='traceprocessing')
+    parser.add_argument('--inputfile')
+    parser.add_argument('--outputfile')
+    args = parser.parse_args()
+    filename = args.inputfile
+    outputfilename = args.outputfile
+
     max_rows = 0
 
     if max_rows == 0:
