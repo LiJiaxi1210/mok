@@ -88,12 +88,6 @@ def generate_ttl(filename, max_rows = 0):
     return setkey_ttl
 
 def main():
-# 统计出现次数
-    # occurrences = count_occurrences(filename, target_column, target_value, count_column, max_rows)
-    # random_value = generate_random_value(occurrences)
-    # print(f'Generated random value: {random_value}')
-    # ttl = generate_ttl(filename, max_rows)
-
     occurrences, ttl = count_ttl_occurrences_and_generate_ttl(filename, max_rows)
 
     v, p = generate_distribution(occurrences)
